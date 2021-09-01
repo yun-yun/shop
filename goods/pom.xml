@@ -4,16 +4,132 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>shop-ddd</artifactId>
-        <groupId>org.example</groupId>
+        <groupId>top.lyunk.ddd.shop</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>goods</artifactId>
+    <groupId>top.lyunk.ddd.shop.goods</groupId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>goods-types</module>
+        <module>goods-domain</module>
+        <module>goods-application</module>
+        <module>goods-infrastructure</module>
+        <module>goods-web</module>
+        <module>goods-start</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>16</maven.compiler.source>
         <maven.compiler.target>16</maven.compiler.target>
+        <mapstruct.version>1.5.0.Beta1</mapstruct.version>
+        <spock.version>2.0-groovy-3.0</spock.version>
+        <groovy.version>3.0.8</groovy.version>
+        <objenesis.version>3.2</objenesis.version>
+        <byte-buddy.version>1.11.0</byte-buddy.version>
+        <lombok.version>1.18.20</lombok.version>
+        <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.4.6</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>top.lyunk.ddd.shop.goods</groupId>
+                <artifactId>goods-types</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.lyunk.ddd.shop.goods</groupId>
+                <artifactId>goods-domain</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.lyunk.ddd.shop.goods</groupId>
+                <artifactId>goods-application</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.lyunk.ddd.shop.goods</groupId>
+                <artifactId>goods-infrastructure</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.lyunk.ddd.shop.goods</groupId>
+                <artifactId>goods-persistence</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.lyunk.ddd.shop.goods</groupId>
+                <artifactId>goods-web</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.lyunk.ddd.shop.goods</groupId>
+                <artifactId>goods-start</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+
+            <!-- Spock 的依赖 -->
+            <dependency>
+                <groupId>org.spockframework</groupId>
+                <artifactId>spock-bom</artifactId>
+                <version>${spock.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.spockframework</groupId>
+                <artifactId>spock-core</artifactId>
+                <version>${spock.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.spockframework</groupId>
+                <artifactId>spock-junit4</artifactId>
+                <version>${spock.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy</artifactId>
+                <version>${groovy.version}</version>
+            </dependency>
+            <dependency> <!-- enables mocking of classes (in addition to interfaces) -->
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy</artifactId>
+                <version>${byte-buddy.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency> <!-- enables mocking of classes without default constructor (together with ByteBuddy or CGLIB) -->
+                <groupId>org.objenesis</groupId>
+                <artifactId>objenesis</artifactId>
+                <version>${objenesis.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- Spock 的依赖 -->
+        </dependencies>
+    </dependencyManagement>
 
 </project>
