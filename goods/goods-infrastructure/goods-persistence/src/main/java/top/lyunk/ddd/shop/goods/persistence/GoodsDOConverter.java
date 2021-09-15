@@ -12,12 +12,14 @@ public interface GoodsDOConverter {
     GoodsDOConverter INSTANCE = Mappers.getMapper(GoodsDOConverter.class);
 
 
+
+    @Mapping(expression = "java(new top.lyunk.ddd.shop.goods.types.GoodsId(goodsDO.getGoodsId()))", target = "goodsId")
+    @Mapping(expression = "java(new top.lyunk.ddd.shop.goods.types.GoodsName(goodsDO.getGoodsName()))", target = "goodsName")
     @Mapping(expression = "java(new top.lyunk.ddd.shop.goods.types.Money(goodsDO.getGoodsPrice(), new top.lyunk.ddd.shop.goods.types.Currency(goodsDO.getGoodsPriceCurrency())))",
             target = "goodsPrice")
-    // @Mapping(source = "goodsPriceCurrency", target = null, ignore = true)
     Goods toEntity(GoodsDO goodsDO);
 
-    @Mapping(expression = "java(goods.getGoodsPrice().getAmount())", target = "goodsPrice")
-    @Mapping(expression = "java(goods.getGoodsPrice().getCurrency().value())", target = "goodsPriceCurrency")
+    // @Mapping(expression = "java(goods.getGoodsPrice().getAmount())", target = "goodsPrice")
+    // @Mapping(expression = "java(goods.getGoodsPrice().getCurrency().value())", target = "goodsPriceCurrency")
     GoodsDO toDO(Goods goods);
 }
