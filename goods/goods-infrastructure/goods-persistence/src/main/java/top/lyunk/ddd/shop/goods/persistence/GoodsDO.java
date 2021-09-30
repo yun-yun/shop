@@ -4,14 +4,14 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
-@Data
-public class GoodsDO {
-    /** 商品id */
-    private Long goodsId;
-    /** 商品名称 */
-    private String goodsName;
-    /** 商品价格 */
-    private BigDecimal goodsPrice;
-    /** 商品价格 */
-    private String goodsPriceCurrency;
+public record GoodsDO(
+        /* 商品id */
+        Long goodsId,
+        /* 商品名称 */
+        String goodsName,
+        /* 商品价格 */
+        BigDecimal goodsPrice,
+        /* 商品价格 */
+        String goodsPriceCurrency
+) {
 }

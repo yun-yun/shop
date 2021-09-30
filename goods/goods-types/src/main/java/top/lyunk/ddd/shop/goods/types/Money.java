@@ -1,29 +1,30 @@
 package top.lyunk.ddd.shop.goods.types;
 
+import cn.hutool.core.util.NumberUtil;
 import lombok.Data;
 import top.lyunk.ddd.shop.goods.exception.IllegalAmountException;
 
-import javax.annotation.Nonnull;
 import java.math.BigDecimal;
-import java.util.Objects;
 
 /**
  * 金额
  */
-@Data
-public final class Money {
-    private final BigDecimal amount;
-    private final Currency currency;
+public record Money(BigDecimal amount, Currency currency) {
+    /**
+     * 最大精度（小数位数）
+     */
+    private static final int MAX_SCALE = 2;
 
-    public Money(BigDecimal amount, Currency currency) {
+    public Money {
         if (amount.compareTo(BigDecimal.ZERO) < 0) {
             throw IllegalAmountException.ofAmount(amount);
         }
-        if (amount.scale() > 2) {
+        if (amount.scale() > MAX_SCALE) {
             throw IllegalAmountException.ofScale(amount.scale());
         }
+    }
 
-        this.amount = amount;
-        this.currency = currency;
+    public Money(BigDecimal amount, String currency) {
+        this(amount, new Currency(currency));
     }
 }

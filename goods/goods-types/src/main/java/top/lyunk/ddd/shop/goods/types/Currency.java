@@ -2,18 +2,15 @@ package top.lyunk.ddd.shop.goods.types;
 
 import java.util.Objects;
 
-public final class Currency {
-    private final String value;
+/**
+ * 货币
+ */
+public record Currency(String value) {
 
-    public Currency(String value) {
+    public Currency {
         if (value == null || "".equals(value)) {
             throw new IllegalArgumentException("货币单位不能为空");
         }
-        this.value = value;
-    }
-
-    public String value() {
-        return value;
     }
 
     @Override
