@@ -14,20 +14,16 @@ class GoodsDOConverterTest extends Specification {
         def goodsName = "张三";
         def goodsPrice = BigDecimal.valueOf(10);
         def goodsPriceCurrency = "RMB";
-        def goodsDO = new GoodsDO()
-        goodsDO.setGoodsId(goodsId);
-        goodsDO.setGoodsName(goodsName);
-        goodsDO.setGoodsPrice(goodsPrice);
-        goodsDO.setGoodsPriceCurrency(goodsPriceCurrency);
+        def goodsDO = new GoodsDO(goodsId, goodsName, goodsPrice, goodsPriceCurrency)
 
         when:
         def goods = GoodsDOConverter.INSTANCE.toEntity(goodsDO)
 
         then:
-        goods.getGoodsId().value() == goodsId
-        goods.getGoodsName().value() == goodsName
-        goods.getGoodsPrice().getAmount() == goodsPrice
-        goods.getGoodsPrice().getCurrency().value() == goodsPriceCurrency
+        goods.goodsId().value() == goodsId
+        goods.goodsName().value() == goodsName
+        goods.goodsMoney().amount() == goodsPrice
+        goods.goodsMoney().currency().value() == goodsPriceCurrency
     }
 
     def "ToDO Test"() {
@@ -36,18 +32,17 @@ class GoodsDOConverterTest extends Specification {
         def goodsName = "张三";
         def goodsPrice = BigDecimal.valueOf(10);
         def goodsPriceCurrency = "RMB";
-        def goods = new Goods()
-        goods.setGoodsId(new GoodsId(goodsId));
-        goods.setGoodsName(new GoodsName(goodsName));
-        goods.setGoodsPrice(new Money(goodsPrice, new Currency(goodsPriceCurrency)));
+        def goods = new Goods(new GoodsId(goodsId),
+                new GoodsName(goodsName),
+                new Money(goodsPrice, new Currency(goodsPriceCurrency)))
 
         when:
         def goodsDO = GoodsDOConverter.INSTANCE.toDO(goods)
 
         then:
-        goodsDO.getGoodsId() == goodsId
-        goodsDO.getGoodsName() == goodsName
-        goodsDO.getGoodsPrice() == goodsPrice
-        goodsDO.getGoodsPriceCurrency() == goodsPriceCurrency
+        goodsDO.goodsId() == goodsId
+        goodsDO.goodsName() == goodsName
+        goodsDO.goodsPrice() == goodsPrice
+        goodsDO.goodsPriceCurrency() == goodsPriceCurrency
     }
 }

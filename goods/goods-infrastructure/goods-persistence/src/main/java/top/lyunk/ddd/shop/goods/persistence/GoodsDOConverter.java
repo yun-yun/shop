@@ -13,7 +13,7 @@ import top.lyunk.ddd.shop.goods.types.strategy.GoodsNameStrategy;
 public interface GoodsDOConverter {
     GoodsDOConverter INSTANCE = Mappers.getMapper(GoodsDOConverter.class);
 
-    @Mapping(target = "goodsMoney", source = "source")
+    @Mapping(target = "goodsMoney", source = "goodsDO")
     Goods toEntity(GoodsDO goodsDO);
 
     /**
@@ -25,5 +25,7 @@ public interface GoodsDOConverter {
         return new Money(goodsDO.goodsPrice(), goodsDO.goodsPriceCurrency());
     }
 
-    // GoodsDO toDO(Goods goods);
+    @Mapping(target = "goodsPrice", source = "goodsMoney.amount")
+    @Mapping(target = "goodsPriceCurrency", source = "goodsMoney.currency.value")
+    GoodsDO toDO(Goods goods);
 }
