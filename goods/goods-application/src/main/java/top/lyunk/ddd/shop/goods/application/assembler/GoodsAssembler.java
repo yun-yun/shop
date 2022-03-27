@@ -1,16 +1,20 @@
 package top.lyunk.ddd.shop.goods.application.assembler;
 
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.factory.Mappers;
+import top.lyunk.ddd.shop.goods.application.dto.GoodsDTO;
+import top.lyunk.ddd.shop.goods.domain.entity.Goods;
 import top.lyunk.ddd.shop.goods.types.strategy.GoodsIdStrategy;
 import top.lyunk.ddd.shop.goods.types.strategy.GoodsNameStrategy;
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
-import top.lyunk.ddd.shop.goods.domain.entity.Goods;
-import top.lyunk.ddd.shop.goods.application.dto.GoodsDTO;
 
 /**
  * Goods DTO Assembler
  */
-@Mapper(uses = {GoodsIdStrategy.class, GoodsNameStrategy.class})
+@Mapper(
+        componentModel = MappingConstants.ComponentModel.JSR330,
+        uses = {GoodsAssembler.class, GoodsIdStrategy.class, GoodsNameStrategy.class}
+)
 public interface GoodsAssembler {
     GoodsAssembler INSTANCE = Mappers.getMapper(GoodsAssembler.class);
 
