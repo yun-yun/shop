@@ -27,7 +27,7 @@ public class GoodsRepositoryImpl implements GoodsRepository {
 
     @Override
     public Goods save(Goods goods) {
-        Goods e = find(goods.getGoodsId());
+        Goods e = find(goods.goodsId());
         log.debug("保存, 待被覆盖记录:[{}]", goods);
         GoodsDO goodsDO = GoodsDOConverter.INSTANCE.toDO(goods);
         log.debug("保存, 待保存记录:[{}]", goodsDO);
